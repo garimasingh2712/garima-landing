@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Garima Singh · Designer, London</title>
+<meta name="description" content="Garima Singh, designer in London. Two portfolios: product design (physical and UI/UX), and visual design (UI/UX, motion and graphics).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Geist+Mono&display=swap">
+<link rel="preload" href="img/bud0.webp" as="image"><link rel="preload" href="img/disc.webp" as="image">
+<style>
+@font-face { font-family: 'Tare'; src: url(img/Tare-Regular.woff2) format('woff2'); font-display: swap; }
+:root { --ink: #121212; --ink-2: #6A6A66; --grey: #F1F1EF; --blue: #2A46D3; --red: #F0402A;
+  --sans: 'Geist', system-ui, sans-serif; --mono: 'Geist Mono', ui-monospace, monospace; --pad: clamp(16px, 3vw, 40px);
+  --d: clamp(150px, 21vw, 280px); --gap: clamp(40px, 10vw, 160px); }
+* { box-sizing: border-box; margin: 0; }
+html, body { height: 100%; }
+body { background: #fff; color: var(--ink); font: 400 16px/1.5 var(--sans); -webkit-font-smoothing: antialiased; overflow: hidden; }
+a { color: inherit; text-decoration: none; }
+.m { font: 400 12px/1.4 var(--mono); letter-spacing: .03em; text-transform: uppercase; }
+.corner { position: fixed; z-index: 3; top: 0; padding: 16px var(--pad); }
+.tl { left: 0; } .tr { right: 0; }
+
+main { min-height: 100vh; min-height: 100dvh; display: grid; place-content: center; justify-items: center; gap: clamp(28px, 5vh, 48px); padding: 70px var(--pad) 40px; }
+.pair { display: flex; gap: var(--gap); }
+.obj { display: grid; justify-items: center; gap: 16px; text-align: center; opacity: 0; transform: scale(.9); outline: none; }
+.ready .obj { animation: pop .7s cubic-bezier(.2,.9,.25,1.15) forwards; }
+.ready .obj.v { animation-delay: .07s; }
+
+/* the two circles: the work itself, cropped round */
+.disc { position: relative; width: var(--d); aspect-ratio: 1; border-radius: 50%; overflow: hidden; background: var(--grey);
+  box-shadow: 0 22px 40px -28px rgba(0,0,0,.45); outline: 3px solid transparent; outline-offset: 14px; transition: outline-offset .4s, outline-color .4s, box-shadow .6s, transform .6s cubic-bezier(.2,.8,.2,1); }
+.disc::after { content: ''; position: absolute; inset: 0; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08); pointer-events: none; }
+.obj.p .disc { background: none; box-shadow: none; overflow: visible; border-radius: 0; perspective: 700px; }
+.obj.p .disc::after { display: none; }
+.obj.p:hover .disc, .obj.p:focus-visible .disc { outline-color: transparent; box-shadow: none; }
+/* product: the Galaxy earbuds, no frame, turning slowly in 3D; hover pulls them apart like an exploded view */
+.bud { position: absolute; top: 50%; width: 40%; transform-style: preserve-3d; filter: drop-shadow(0 18px 14px rgba(0,0,0,.22)); transition: translate .8s cubic-bezier(.2,.8,.2,1); }
+.bud.l { left: 8%; margin-top: -32%; animation: turnL 5s ease-in-out infinite; }
+.bud.r { left: 56%; width: 31%; margin-top: -40%; animation: turnR 5s ease-in-out infinite; }
+@keyframes turnL { 0%, 100% { transform: translateY(-4%) rotateY(-28deg) rotateX(6deg) rotate(-5deg); } 50% { transform: translateY(5%) rotateY(26deg) rotateX(-4deg) rotate(4deg); } }
+@keyframes turnR { 0%, 100% { transform: translateY(5%) rotateY(24deg) rotateX(-5deg) rotate(4deg); } 50% { transform: translateY(-4%) rotateY(-30deg) rotateX(5deg) rotate(-5deg); } }
+.obj.p:hover .bud.l, .obj.p:focus-visible .bud.l { translate: -14% 4%; }
+.obj.p:hover .bud.r, .obj.p:focus-visible .bud.r { translate: 16% -6%; }
+.obj.p .disc .sh { position: absolute; left: 14%; right: 14%; bottom: 4%; height: 8%; border-radius: 50%; background: rgba(0,0,0,.14); filter: blur(10px); animation: sh 5s ease-in-out infinite; }
+@keyframes sh { 0%, 100% { transform: scaleX(.85); opacity: .7; } 50% { transform: scaleX(1); opacity: 1; } }
+/* visual: the Resurrected picture disc, turned one frame at a time so its drawing animates (the phenakistiscope trick) */
+.obj.v .disc { background: #1F2A4A; }
+.obj.v .disc img { position: absolute; inset: 0; width: 100%; height: 100%; animation: step 1s steps(12) infinite; }
+.obj.v:hover .disc img, .obj.v:focus-visible .disc img { animation-duration: .75s; }
+@keyframes step { to { transform: rotate(360deg); } }
+.obj:hover .disc, .obj:focus-visible .disc { transform: translateY(-6px); box-shadow: 0 32px 50px -26px rgba(0,0,0,.5); outline-offset: 6px; }
+.obj.p:hover .disc, .obj.p:focus-visible .disc { outline-color: var(--blue); }
+.obj.v:hover .disc, .obj.v:focus-visible .disc { outline-color: var(--red); }
+
+.obj b { font: 500 22px/1 var(--sans); letter-spacing: -.02em; }
+.obj.v b { font: 400 24px/1 'Tare', var(--sans); text-transform: uppercase; color: var(--red); letter-spacing: .02em; }
+.obj .m { color: var(--ink-2); }
+.go { display: inline-flex; gap: 8px; align-items: center; height: 42px; padding: 0 18px; border-radius: 99px; color: #fff; font: 500 14px/1 var(--sans); transition: transform .3s; }
+.obj.p .go { background: var(--blue); } .obj.v .go { background: var(--red); }
+.obj:hover .go { transform: translateY(-2px); }
+h1 { font: 500 clamp(22px, 2.4vw, 30px)/1.1 var(--sans); letter-spacing: -.03em; text-align: center; opacity: 0; }
+.ready h1 { animation: fade .6s .35s forwards; }
+
+/* loader: one dot pulses, then splits into a blue and a red dot that fly out to become the two circles */
+.dot, .half { position: fixed; left: 50%; top: 50%; z-index: 5; width: 18px; height: 18px; margin: -9px; border-radius: 50%; }
+.dot { background: var(--ink); animation: pulse 1s ease-in-out forwards; }
+.dot.split { animation: gone .3s ease forwards; }
+.half { opacity: 0; z-index: 4; }
+.half.a { background: var(--blue); --x: calc(-1 * (var(--d) + var(--gap)) / 2); }
+.half.b { background: var(--red); --x: calc((var(--d) + var(--gap)) / 2); }
+.dot.split ~ .half { animation: fly .55s cubic-bezier(.6,0,.2,1) forwards; }
+@keyframes pulse { 0% { transform: scale(0); } 45% { transform: scale(1.5); } 75% { transform: scale(.85); } 100% { transform: scale(1); } }
+@keyframes gone { to { transform: scale(0); } }
+@keyframes fly { 0% { opacity: 1; transform: none; } 70% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--x), -60px) scale(4); } }
+@keyframes pop { to { opacity: 1; transform: none; } }
+@keyframes fade { to { opacity: 1; } }
+
+@media (max-width: 600px) {
+  body { overflow: auto; }
+  :root { --d: 42vw; --gap: 16px; }
+  .obj b { font-size: 18px; } .obj.v b { font-size: 19px; }
+  .obj .m { font-size: 10px; }
+  .go { height: 40px; padding: 0 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dot, .half { display: none; }
+  .bud, .sh, .obj.v .disc img { animation: none !important; }
+  .obj, h1 { opacity: 1; transform: none; animation: none !important; }
+}
+
+/* leaving: the page fades back, a wash in the next site's colour grows from the click, then the site opens on the same colour */
+.wipe { position: fixed; z-index: 20; left: 0; top: 0; width: 20px; height: 20px; margin: -10px; border-radius: 50%; pointer-events: none; transform: scale(0); transition: transform .9s cubic-bezier(.65,0,.25,1); }
+.wipe.p { background: var(--blue); } .wipe.v { background: var(--red); }
+.wipe.p.b2 { background: #F1F1EF; transition-delay: .18s; } .wipe.v.b2 { background: #FFFFFF; transition-delay: .18s; }
+.wipe-lab { position: fixed; z-index: 21; inset: 0; display: grid; place-items: center; pointer-events: none; opacity: 0; transition: opacity .5s ease .35s; }
+.wipe-lab span { font: 500 clamp(28px, 4vw, 48px)/1 var(--sans); letter-spacing: -.03em; }
+.wipe-lab.v span { font: 400 clamp(30px, 4.4vw, 54px)/1 'Tare', var(--sans); text-transform: uppercase; color: var(--red); }
+.leaving .wipe-lab { opacity: 1; }
+.leaving main, .leaving .corner { transition: opacity .5s ease, transform .9s cubic-bezier(.65,0,.25,1); opacity: 0; transform: scale(.97); }
+.leaving .obj.chosen { opacity: 1; }
+</style>
+</head>
+<body>
+<span class="corner tl m">Garima Singh</span><span class="corner tr m">Designer · London</span>
+<div class="dot" id="dot" aria-hidden="true"></div><div class="half a" aria-hidden="true"></div><div class="half b" aria-hidden="true"></div>
+
+<main>
+  <div class="pair">
+    <a class="obj p" href="https://garima-product-site.vercel.app/" aria-label="Product design portfolio: physical products and UI/UX. Shown: Galaxy earbuds">
+      <span class="disc"><span class="sh"></span><img class="bud l" src="img/bud0.webp" alt=""><img class="bud r" src="img/bud1.webp" alt=""></span>
+      <b>Product design</b><span class="m">Physical · UI/UX</span><span class="go">Enter →</span>
+    </a>
+    <a class="obj v" href="https://garima-studio-site.vercel.app/" aria-label="Visual design portfolio: UI/UX, motion and graphics. Shown: the Resurrected picture disc">
+      <span class="disc"><img src="img/disc.webp" alt=""></span>
+      <b>Visual design</b><span class="m">UI/UX · Motion · Graphics</span><span class="go">Enter →</span>
+    </a>
+  </div>
+  <h1>Garima Singh, designer in London</h1>
+</main>
+
+<script>
+(() => {
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let seen = false; try { seen = sessionStorage.getItem('gs-seen') === '1'; } catch (e) {}
+  const dot = document.getElementById('dot');
+  const start = () => { document.body.classList.add('ready'); };
+  const clear = () => document.querySelectorAll('.dot,.half').forEach((n) => n.remove());
+  if (still || seen) { clear(); start(); }
+  else {
+    setTimeout(() => dot.classList.add('split'), 950);
+    setTimeout(start, 1250);
+    setTimeout(() => { clear(); try { sessionStorage.setItem('gs-seen', '1'); } catch (e) {} }, 1700);
+  }
+
+
+  // a gradual way out: the chosen side's colour spreads over the page, then the site opens
+  let leaving = false;
+  document.querySelectorAll('.obj').forEach((o) => o.addEventListener('click', (e) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1 || leaving) return;
+    e.preventDefault(); leaving = true;
+    const k = o.classList.contains('p') ? 'p' : 'v', href = o.href;
+    if (still) { location.href = href; return; }
+    const r = o.querySelector('.disc').getBoundingClientRect();
+    const x = e.clientX || r.left + r.width / 2, y = e.clientY || r.top + r.height / 2;
+    const mk = (c) => { const n = document.createElement('div'); n.className = 'wipe ' + k + c; n.style.left = x + 'px'; n.style.top = y + 'px'; return n; };
+    const w = mk(''), w2 = mk(' b2');
+    const lab = document.createElement('div'); lab.className = 'wipe-lab ' + k; lab.innerHTML = '<span>' + o.querySelector('b').textContent + '</span>';
+    document.body.append(w, w2, lab);
+    const R = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y)) / 10 + 2;
+    requestAnimationFrame(() => requestAnimationFrame(() => { document.body.classList.add('leaving'); w.style.transform = w2.style.transform = 'scale(' + R + ')'; }));
+    setTimeout(() => { location.href = href; }, 1250);
+  }));
+  // coming back with the browser's back button: undo it
+  addEventListener('pageshow', (e) => { if (!e.persisted) return; leaving = false; document.body.classList.remove('leaving'); document.querySelectorAll('.wipe,.wipe-lab').forEach((n) => n.remove()); });
+})();
+</script>
+</body>
+</html>
